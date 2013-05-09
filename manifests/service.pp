@@ -8,7 +8,7 @@ class yumupdatesd::service {
   case $yumupdatesd::ensure {
     present, enabled, active:  {
       #everything should be installed, but puppet is not managing the state of the service
-      service {'yum-updatesd':
+      service {$servicename:
         ensure    => running,
         enable    => true,
         subscribe => File['yumupdatesd_conf'],

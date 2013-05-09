@@ -2,23 +2,24 @@
 #  wrapper class
 #Class['yumupdatesd::config']
 class yumupdatesd::config {
+  include yumupdatesd
   #clean up our parameters
+  $config_file        = $yumupdatesd::config_file
   $ensure             = $yumupdatesd::ensure
   case $ensure {
     present, enabled, active, disabled, stopped: {
+      file {$config_file:
+        ensure  => file,
+        content => template('yumupdatesd/etc/yum-updatesd.conf.erb'),
+        group   => 'root',
+        mode    => '0644',
+        owner   => 'root',
+      }
     }#end configfiles should be present case
     absent: {
-      file {'yumupdatesd_conf':
+      file {$config_file:
         ensure  => 'absent',
-        path    =>  $configfilepath,
-      }#end yumupdatesdd.conf file
-      file {'/etc/init.d/yumupdatesd':
-        ensure => 'absent',
-      }#End init file
-      file {'yumupdatesd_logfile':
-        ensure  => 'absent',
-        path    => $logfile,
-      }#end yumupdatesd logfile file
+      }#end yumupdatesd.conf file
     }#end configfiles should be absent case
     default: {
       notice "yumupdatesd::ensure has an unsupported value of ${yumupdatesd::ensure}."

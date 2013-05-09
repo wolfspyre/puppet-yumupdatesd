@@ -34,11 +34,25 @@
 # Copyright 2013 Wolf Noble, unless otherwise noted.
 #
 class yumupdatesd::params{
-    case $::osfamily {
-      RedHat: {
-        $package_name = 'yum-updatesd'
-        $service_name = 'yum-updatesd'
-      }
+  # In case these ever change between major osversion, and we need to adjust
+  # defaults I'll leave these here. but they're not currently in use.
+  #$do_download      = false
+  #$do_download_deps = false
+  #$do_update        = false
+  #$email_from       = 'yum-updatesd@localhost'
+  #$email_to         = 'root@localhost'
+  #$emit_via         = 'email'
+  #$run_interval     = '3600'
+  #$smtp_server      = 'localhost:25'
+  #$syslog_facility  = 'DAEMON'
+  #$syslog_level     = 'WARN'
+  #$update_refresh   = '600'
+  case $::osfamily {
+    RedHat: {
+      $config_file  = '/etc/yum/yum-updatesd.conf'
+      $package_name = 'yum-updatesd'
+      $service_name = 'yum-updatesd'
+    }
     default: {}
   }
 }
