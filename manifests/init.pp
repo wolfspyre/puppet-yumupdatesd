@@ -107,7 +107,7 @@ $update_refresh   = '600'
           Class['yumupdatesd::package'] -> Class['yumupdatesd::config'] -> Class['yumupdatesd::service']
         }
         /^6./: {
-          notice "Sorry. $::{operatingsystem} ${::operatingsystemrelease} doesn't support yum-updatesd.Looking at PackageKit"
+          notice "Sorry. ${::operatingsystem} ${::operatingsystemrelease} doesn't support yum-updatesd.Looking at PackageKit"
         }
       }
     }
