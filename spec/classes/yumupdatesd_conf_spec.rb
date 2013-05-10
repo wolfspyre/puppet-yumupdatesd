@@ -13,7 +13,10 @@ describe 'yumupdatesd', :type => :class do
   context "On a RedHat OS" do
     let :params do default_params end
     let :facts do
-      { :osfamily => 'RedHat' }
+      { :osfamily => 'RedHat',
+        :operatingsystem => 'RedHat',
+        :operatingsystemrelease => '5.9',
+      }
     end
     ['present', 'active'].each do |yesplease|
       context "when ensure has the value '#{yesplease}' (Coverage testing)" do

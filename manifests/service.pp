@@ -4,6 +4,7 @@
 class yumupdatesd::service {
   $packagename        = $yumupdatesd::package_name
   $servicename        = $yumupdatesd::service_name
+  $config_file        = $yumupdatesd::config_file
   # end of variables
   case $yumupdatesd::ensure {
     present, enabled, active:  {
@@ -11,7 +12,7 @@ class yumupdatesd::service {
       service {$servicename:
         ensure    => running,
         enable    => true,
-        subscribe => File['yumupdatesd_conf'],
+        subscribe => File[$config_file],
         require   => Package[$packagename],
         hasstatus => true,
       }#end service definition
@@ -20,7 +21,7 @@ class yumupdatesd::service {
       service {$servicename:
         ensure    => stopped,
         enable    => false,
-        subscribe => File['yumupdatesd_conf'],
+        subscribe => File[$config_file],
         hasstatus => true,
       }#end service definition
     }#end disabled

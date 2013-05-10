@@ -99,10 +99,17 @@ $update_refresh   = '600'
 #  validate_re($emit_via, ['email', 'dbus', 'syslog'], "The emit_via parameter has an unsupported value of ${emit_via}")
   case $::osfamily {
     RedHat: {
-      include yumupdatesd::package
-      include yumupdatesd::config
-      include yumupdatesd::service
-      Class['yumupdatesd::package'] -> Class['yumupdatesd::config'] -> Class['yumupdatesd::service']
+      case $::operatingsystemrelease {
+        /^5./: {
+          include yumupdatesd::package
+          include yumupdatesd::config
+          include yumupdatesd::service
+          Class['yumupdatesd::package'] -> Class['yumupdatesd::config'] -> Class['yumupdatesd::service']
+        }
+        /^6./: {
+          notice "Sorry. $::{operatingsystem} ${::operatingsystemrelease} doesn't support yum-updatesd.Looking at PackageKit"
+        }
+      }
     }
     default: {}
   }
