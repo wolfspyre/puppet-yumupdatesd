@@ -78,6 +78,7 @@
 #
 class yumupdatesd(
 $ensure           = 'enabled',
+$enable_6         = true,
 $comments         = true,
 $config_file      = $yumupdatesd::params::config_file,
 $dbus_listener    = true,
@@ -107,7 +108,13 @@ $update_refresh   = '600'
           Class['yumupdatesd::package'] -> Class['yumupdatesd::config'] -> Class['yumupdatesd::service']
         }
         /^6./: {
-          notice "Sorry. ${::operatingsystem} ${::operatingsystemrelease} doesn't support yum-updatesd.Looking at PackageKit"
+          if $enable_6 {
+            include yumupdatesd::package
+            include yumupdatesd::config
+            include yumupdatesd::service
+            Class['yumupdatesd::package'] -> Class['yumupdatesd::config'] -> Class['yumupdatesd::service']
+          }
+          notice "Sorry. ${::operatingsystem} ${::operatingsystemrelease} doesn't natively support yum-updatesd. An unsupported RPM is included in this module."
         }
       }
     }
