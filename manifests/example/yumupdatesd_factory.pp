@@ -40,8 +40,9 @@ class yumupdatesd::example::yumupdatesd_factory {
       $syslog_facility  = hiera('yumupdatesd::syslog_facility',  'DAEMON')
       $syslog_level     = hiera('yumupdatesd::syslog_level',     'WARN')
       $update_refresh   = hiera('yumupdatesd::update_refresh',   '600')
-      $params {
+      $params = {
         ensure           => $ensure,
+        enable_6         => $enable_6,
         comments         => $comments,
         config_file      => $config_dir,
         dbus_listener    => $dbus_listener,
