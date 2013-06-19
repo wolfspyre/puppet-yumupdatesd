@@ -113,8 +113,9 @@ $update_refresh   = '600'
             include yumupdatesd::config
             include yumupdatesd::service
             Class['yumupdatesd::package'] -> Class['yumupdatesd::config'] -> Class['yumupdatesd::service']
+          } else {
+            notice "Sorry. ${::operatingsystem} ${::operatingsystemrelease} doesn't natively support yum-updatesd. An unsupported RPM is included in this module."
           }
-          notice "Sorry. ${::operatingsystem} ${::operatingsystemrelease} doesn't natively support yum-updatesd. An unsupported RPM is included in this module."
         }
       }
     }
