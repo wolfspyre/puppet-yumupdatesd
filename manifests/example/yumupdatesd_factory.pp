@@ -3,6 +3,7 @@
 #
 #
 #yumupdatesd::ensure:           'enabled'
+#yumupdatesd::enable_6:         true
 #yumupdatesd::comments:         true
 #yumupdatesd::config_dir:       '/etc/yum/yum-updatesd.conf'
 #yumupdatesd::dbus_listener:    true
@@ -22,6 +23,7 @@ class yumupdatesd::example::yumupdatesd_factory {
   case $::osfamily {
     RedHat: {
       $ensure           = hiera('yumupdatesd::ensure',           'enabled')
+      $enable_6         = hiera('yumupdatesd::enable_6',         true)
       $comments         = hiera('yumupdatesd::comments',         true)
       $config_file      = hiera('yumupdatesd::config_dir',       '/etc/yum/yum-updatesd.conf')
       $dbus_listener    = hiera('yumupdatesd::dbus_listener',    true)
