@@ -25,9 +25,14 @@ yum-updatesd makes it a little easier to manage a herd of rhel/centos boxes by e
 
 ###What yumupdatesd affects
 
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any Warnings.
-* Can be in list or paragraph form.
+* Files
+    * /etc/yum/yum-updatesd.conf
+* Package
+    * yum-updatesd
+* Service
+    * yum-updatesd
+* Miscellaneous:
+    * an RHEL/CentOS 6 RPM is contained in the files section of this module
 
 ###Setup Requirements **OPTIONAL**
 
@@ -35,17 +40,22 @@ If your module requires anything before setting up (pluginsync enabled, etc.) th
 
 ###Beginning with yumupdatesd
 
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+* Configure an smtp server that your systems can send mail to.
+* Configure the following parameters:
+    * emit_via
+    * email_from
+    * email_to
+    * smtp_server
 
 ##Usage
 
-Classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module.
+####Invocation methods:
+* Update the parameters either via puppet3 data bindings
+* Use a profile module like the one included in the example directory.
+* Declare the class directly and provide custom values at that time.
+* Alter the module's default values.
 
 ##Reference
-
-A list of classes, types, providers, facts, etc. All under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things.
 
 ##Limitations
 
@@ -54,7 +64,7 @@ http://kojipkgs.fedoraproject.org/packages/yum-updatesd/0.9/4.fc15/src/
 
 ##Development
 
-Guidelines and instructions for contributing to your module.
+
 
 ##Release Notes/Contributors/Etc **Optional**
 
